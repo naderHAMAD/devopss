@@ -13,8 +13,8 @@ pipeline {
         stage('Checkout GIT') {
             steps {
                 echo 'Pulling...';
-                git branch: 'fatma',
-                url : 'https://github.com/5se4-G1/DevOPs.git'
+                git branch: 'nader',
+                url : 'https://github.com/naderHAMAD/devopss.git'
             }
         }
 
@@ -37,12 +37,7 @@ pipeline {
                   sh  'mvn package'
               }
         }
-              stage("nexus deploy"){
-               steps{
-                       sh 'mvn  deploy'
-               }
-          }
-
+           
           stage('MVN SONARQUBE'){
 
                 steps{
@@ -88,23 +83,23 @@ pipeline {
     post{
 
             success {
-                mail to: "bellilifatma49@gmail.com",
+                mail to: "nader.hamad@esprit.tn",
                 body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n, More info at: ${env.BUILD_URL}",
-                from: "bellilifatma49@gmail.com",
+                from: "nader.hamad@esprit.tn",
                 subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}"
             }
 
             failure{
-                mail to: "bellilifatma49@gmail.com",
+                mail to: "nader.hamad@esprit.tn",
                 subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
-                from: "bellilifatma49@gmail.com",
+                from: "nader.hamad@esprit.tn",
                 body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
             }
 
             changed{
-                mail to: "bellilifatma49@gmail.com",
+                mail to: "nader.hamad@esprit.tn",
                 subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
-                from: "bellilifatma49@gmail.com",
+                from: "nader.hamad@esprit.tn",
                 body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
             }
         }
