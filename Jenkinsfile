@@ -44,6 +44,19 @@ pipeline {
                           sh  'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
                 }
           }
+
+           stage("Test JUnit /Mockito"){
+                steps {
+                            sh 'mvn test'
+                }
+          }
+
+           stage('DOCKER COMPOSE') {
+                steps {
+                            sh 'docker-compose up -d --build'
+                }
+          }
+        
          stage('Building our image') {
                steps{
                         script {
@@ -62,18 +75,9 @@ pipeline {
                }
          }
 
-          stage('DOCKER COMPOSE') {
-                steps {
-                            sh 'docker-compose up -d --build'
-                }
-          }
-        
+         
     
-          stage("Test JUnit /Mockito"){
-                steps {
-                            sh 'mvn test'
-                }
-          }
+         
 
 
        
