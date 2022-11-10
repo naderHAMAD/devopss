@@ -2,7 +2,12 @@ import java.text.SimpleDateFormat
 pipeline {
     agent any
 
-    
+     environment {
+            registry = "fatmabe/devops-project"
+            registryCredential = 'dockerHub'
+            dockerImage = ''
+     }
+
     stages {
 
         stage('Checkout GIT') {
@@ -33,12 +38,6 @@ pipeline {
               }
         }
            
- stage("Test JUnit /Mockito"){
-                steps {
-                            sh 'mvn test'
-                }
-          }
-
           stage('MVN SONARQUBE'){
 
                 steps{
@@ -46,7 +45,11 @@ pipeline {
                 }
           }
 
-          
+           stage("Test JUnit /Mockito"){
+                steps {
+                            sh 'mvn test'
+                }
+          }
 
            stage('DOCKER COMPOSE') {
                 steps {
